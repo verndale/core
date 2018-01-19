@@ -1,0 +1,13 @@
+/.idea/
+/__tests__/
+/node_modules/
+/docs/
+.babelrc
+.editorconfig
+.esdoc.json
+.eslintignore
+.eslintrc.js
+.gitignore
+.npmignore
+.travis.yml
+karma.conf.js

@@ -1,0 +1,9 @@
+language: node_js
+node_js: '9'
+branches:
+  only:
+  - master
+before_install:
+- npm install -g eslint
+- npm install -g babel-eslint
+script: "npm test"
