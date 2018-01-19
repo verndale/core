@@ -1,5 +1,5 @@
 import 'jasmine-jquery';
-import Component from '../../core/Component';
+import Component from '../core/Component';
 
 jasmine.getFixtures().fixturesPath = 'base/__tests__/__fixtures__';
 
