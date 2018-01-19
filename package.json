@@ -9,6 +9,8 @@
     "email": "joe.fusco@verndale.com"
   },
   "scripts": {
+    "version": "git add .",
+    "postversion": "git push origin master --tags",
     "status": "flow status",
     "lint": "eslint --fix --color --debug --ignore-path .eslintignore ./core/*.js",
     "test": "npm run lint && karma start --single-run --no-auto-watch",
