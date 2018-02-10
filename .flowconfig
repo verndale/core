@@ -1,12 +1,10 @@
 [ignore]
 <PROJECT_ROOT>/__tests__/.*
-<PROJECT_ROOT>/__mocks__/.*
 <PROJECT_ROOT>/docs
 <PROJECT_ROOT>/node_modules
 
 [include]
-<PROJECT_ROOT>/src/dom/*.js
-<PROJECT_ROOT>/src/core/*.js
+<PROJECT_ROOT>/src/src/*.js
 
 [options]
 module.file_ext=.js
