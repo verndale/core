@@ -1,3 +1,4 @@
+const path = require('path');
 const webpack = require('karma-webpack');
 const wp = require('webpack');
 
@@ -13,20 +14,24 @@ module.exports = function (config) {
         included: false
       }
     ],
-    plugins: [webpack, 'karma-jasmine', 'karma-phantomjs-launcher', 'karma-spec-reporter', 'karma-coverage'],
+    plugins: [webpack, 'karma-jasmine', 'karma-phantomjs-launcher', 'karma-spec-reporter', 'karma-coverage-istanbul-reporter'],
     browsers: ['PhantomJS'],
     coverageReporter: {
-      dir: './docs/coverage',
+      dir: path.join(__dirname, 'docs/coverage'),
       reporters: [
         { type: 'lcov', subdir: 'reports' }
       ]
     },
-    reporters: ['spec', 'coverage'],
+    coverageIstanbulReporter: {
+      dir: path.join(__dirname, 'docs/coverage'),
+    },
+    reporters: ['spec', 'coverage-istanbul'],
     colors: true,
     preprocessors: {
       '__tests__/**/*-test.js': ['webpack']
     },
     webpack: {
+      mode: 'development',
       plugins: [
         new wp.ProvidePlugin({
           $: 'jquery',
@@ -38,13 +43,18 @@ module.exports = function (config) {
           {
             test: /\.js?$/,
             exclude: /(node_modules)/,
-            loader: 'babel-loader'
+            use: {
+              loader: 'babel-loader'
+            }
           },
           {
-            enforce: 'pre',
             test: /\.js/,
-            loader: 'isparta-loader',
-            exclude: /(__tests__|node_modules)/
+            enforce: 'post',
+            exclude: /(__tests__|node_modules)/,
+            use: {
+              loader: 'istanbul-instrumenter-loader',
+              options: { esModules: true }
+            }
           }
         ]
       }
