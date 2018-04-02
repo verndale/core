@@ -1,29 +1,33 @@
 // @flow
-import importComponent from './importComponent';
+import importModule from './importModule';
 import render from './render';
 import Component from './Component';
 
 /**
- * Creates bundles from components that are defined in this method.
- * This is to be used for the main entry points for your component initialization.
+ * Creates bundles from modules that are defined in this method.
+ * This is to be used for the main entry points for your module initialization.
  *
- * `create()` allows you to import any component(s) at runtime as long as the DOM element is on the page.
- * This method should be used to load JavaScript chunks at runtime that you don not want in the main or common budle
+ * `create()` allows you to import any module(s) at runtime as long as the DOM element is on the page.
+ * This method should be used to load JavaScript chunks at runtime that you don not want in the main or common bundle
  * and is used with the {@link Component} and {@link render} method to loop through each matched element on the page.
  *
- * You must have a `data-component` attribute that is the same name as the JavaScript class in the HTML
+ * You must have a `data-module` attribute that is the same name as the JavaScript file in the HTML
  * in order for `create()` to detect the component.
  *
- * **This method will automatically look in the `src/js/components` folder** - *this cannot be changed*
+ * The JavaScript file you are importing does **not** have to be a `class`; it could be anything - ie. a single function,
+ * an object, or a collection of utility functions.
+ *
+ * **This method will automatically look in the `src/js/modules` folder** - *this cannot be changed* because we are
+ * using dynamic imports and it needs a reliable, hardcoded folder to look in order to chunk files properly.
  *
  * @example
- * //'Foo' is the name of the JavaScript class
- * <div data-component="Foo"></div>
- * //'Bar' is the name of the JavaScript class
- * <div data-component="Bar"></div>
+ * //'Foo' is the name of the JavaScript file
+ * <div data-module="Foo"></div>
+ * //'Bar' is the name of the JavaScript file
+ * <div data-module="Bar"></div>
  *
  * @example
- * //create simple components
+ * //create simple modules
  *
  * //-- src/js/main.js
  * import create from '@verndale/core';
@@ -36,7 +40,7 @@ import Component from './Component';
  * create(organisms);
  *
  * @example
- * //define some properties to the component
+ * //define some properties to the module "Bar"
  *
  * //-- src/js/main.js
  * import create from '@verndale/core';
@@ -76,30 +80,30 @@ import Component from './Component';
  *
  * create(organisms);
  *
- * @param {Array<Object>} organisms - An array of components to be imported.
+ * @param {Array<Object>} organisms - An array of modules to be imported.
  * @param {String} organisms[].name - The path/name of the JavaScript file.
- * @param {Function} organisms[].render - Function used to intercept the rendering of the component.
+ * @param {Function} organisms[].render - Function used to intercept the rendering of the module.
  */
 function create(organisms: Array<Object>): void {
   organisms.forEach(organism => {
-    importComponent(organism.name)
+    importModule(organism.name)
       .then(data => {
         if (!data) return;
 
-        const { component, el } = data;
+        const { module, el } = data;
 
         if (organism.render && typeof organism.render === 'function'){
-          organism.render(component, el);
+          organism.render(module, el);
 
           return;
         }
 
         render(el, $target => {
-          new component($target, organism.props);
+          new module($target, organism.props);
         });
       })
       .catch(err => {
-        throw new Error(`There was an error importing the component - ${err}`);
+        throw new Error(`There was an error importing the module - ${err}`);
       });
   });
 }
@@ -108,6 +112,6 @@ export default create;
 
 export {
   render,
-  importComponent,
+  importModule,
   Component
 }

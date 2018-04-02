@@ -8,12 +8,19 @@
     "name": "Joe Fusco",
     "email": "joe.fusco@verndale.com"
   },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository" : {
+    "type" : "git",
+    "url" : "https://github.com/v3rndale/core.git"
+  },
   "scripts": {
     "version": "npm run build && git add .",
     "postversion": "git push origin master --tags",
     "status": "flow status",
     "lint": "eslint --fix --color --debug --ignore-path .eslintignore ./src/*.js",
-    "test": "npm run lint && karma start --single-run --no-auto-watch",
+    "test": "npm run status && npm run lint && karma start --single-run --no-auto-watch",
     "build": "rimraf ./docs ./lib && npm test && npm run status && documentation build dom/* src/* -f html -g true -o docs && npx babel src --out-dir lib"
   },
   "devDependencies": {

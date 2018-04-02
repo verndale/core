@@ -4,17 +4,17 @@ import path from 'path';
 /**
  * @ignore
  *
- * Imports a component dynamically.
+ * Imports a module dynamically.
  *
  * *You should never use this method directly* as this method is used in
  * conjunction with {@link Component}, {@link create} and {@link render} to provide a wrapper and simple interface for the engineer.
  *
  * @example
  * //'Foo' is the name of the JavaScript class
- * <div data-component="Foo"></div>
+ * <div data-module="Foo"></div>
  *
  * @example
- * //-- src/js/components/Foo.js
+ * //-- src/js/modules/Foo.js
  * import { Component } from '@verndale/core';
  *
  * class Foo extends Component{
@@ -26,24 +26,24 @@ import path from 'path';
  * }
  *
  * //-- src/js/main.js
- * import { importComponent, render } from '@verndale/core';
+ * import { importModule, render } from '@verndale/core';
  *
- * //import a single component/class called Foo.js located in src/js/components
- * importComponent('Foo').then(data => {
+ * //import a single module/class called Foo.js located in src/js/modules
+ * importModule('Foo').then(data => {
  *     if(!data) return;
- *     const { component, el } = data;
+ *     const { module, el } = data;
  *
  *     render(el, $target => {
- *       new component($target);
+ *       new module($target);
  *     })
  *   });
  *
  * @example
  * //'Bar' is the name of the JavaScript class
- * <div data-component="Bar"></div>
+ * <div data-module="Bar"></div>
  *
  * @example
- * //-- src/js/components/global/Bar.js
+ * //-- src/js/modules/global/Bar.js
  * import { Component } from '@verndale/core';
  *
  * class Bar extends Component{
@@ -60,13 +60,13 @@ import path from 'path';
  * //-- src/js/main.js
  * import { importComponent, render } from '@verndale/core';
  *
- * //import a single component and add some additional properties
- * importComponent('global/Bar').then(data => {
+ * //import a single module and add some additional properties
+ * importModule('global/Bar').then(data => {
  *     if(!data) return;
- *     const { component, el } = data;
+ *     const { module, el } = data;
  *
  *     render(el, $target => {
- *       new component($target, {
+ *       new module($target, {
  *         firstName: 'foo',
  *         lastName: 'bar'
  *       });
@@ -74,29 +74,29 @@ import path from 'path';
  *   });
  *
  * @see {@link create}
- * @param {string} name - Path/name of the file you want to import relative to `src/js/components/`.
- * @returns {Promise.<Object>} - Returns a `data` object that holds the default component class and the element `(data.component, data.el)`
+ * @param {string} name - Path/name of the file you want to import relative to `src/js/modules/`.
+ * @returns {Promise.<Object>} - Returns a `data` object that holds the default module and the element `(data.module, data.el)`
  *
  */
-async function importComponent(name: string) {
+async function importModule(name: string) {
   const fileName: string = name.split('/').pop();
   const filePath: string = name.substring(0, name.lastIndexOf('/'));
-  const el: NodeList<HTMLElement> = document.querySelectorAll(`[data-component=${fileName}]`);
+  const el: NodeList<HTMLElement> = document.querySelectorAll(`[data-module=${fileName}]`);
 
   if (el.length === 0) return;
 
   const fullFilePath: string = filePath !== '' ? path.join(filePath, fileName) : fileName;
 
-  return await import(`components/${fullFilePath}`)
-    .then(component => {
+  return await import(`../../../../src/js/modules/${fullFilePath}`)
+    .then(module => {
       return {
-        component: component.default,
+        module: module.default,
         el
       };
     })
     .catch(err => {
-      Promise.reject(new Error(`There was an error loading your component - ${err}`));
+      Promise.reject(new Error(`There was an error loading your module - ${err}`));
     });
 }
 
-export default importComponent;
+export default importModule;
