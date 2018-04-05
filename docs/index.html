@@ -121,7 +121,7 @@
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/v3rndale/core/blob/d8234b2f2dd0838600d9bef2099856dcd5e0e98c/src/Component.js#L35-L147'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/v3rndale/core/blob/a634ad8ea485e8e4994574cb393a05b7bf4369f5/src/Component.js#L35-L147'>
       <span>src/Component.js</span>
       </a>
     
@@ -228,7 +228,7 @@ is a helper class to keep the code uniform.</p>
   <div class='clearfix'>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/v3rndale/core/blob/d8234b2f2dd0838600d9bef2099856dcd5e0e98c/src/Component.js#L47-L47'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/v3rndale/core/blob/a634ad8ea485e8e4994574cb393a05b7bf4369f5/src/Component.js#L47-L47'>
       <span>src/Component.js</span>
       </a>
     
@@ -289,7 +289,7 @@ This can be reachable at any time in your subclass with <code>this.$el</code></p
   <div class='clearfix'>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/v3rndale/core/blob/d8234b2f2dd0838600d9bef2099856dcd5e0e98c/src/Component.js#L67-L67'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/v3rndale/core/blob/a634ad8ea485e8e4994574cb393a05b7bf4369f5/src/Component.js#L67-L67'>
       <span>src/Component.js</span>
       </a>
     
@@ -345,7 +345,7 @@ It's called directly after the element and configuration have been set up</p>
   <div class='clearfix'>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/v3rndale/core/blob/d8234b2f2dd0838600d9bef2099856dcd5e0e98c/src/Component.js#L74-L74'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/v3rndale/core/blob/a634ad8ea485e8e4994574cb393a05b7bf4369f5/src/Component.js#L74-L74'>
       <span>src/Component.js</span>
       </a>
     
@@ -401,7 +401,7 @@ It's called directly after <code>setupDefaults()</code>, so everything is ready 
   <div class='clearfix'>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/v3rndale/core/blob/d8234b2f2dd0838600d9bef2099856dcd5e0e98c/src/Component.js#L97-L99'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/v3rndale/core/blob/a634ad8ea485e8e4994574cb393a05b7bf4369f5/src/Component.js#L97-L99'>
       <span>src/Component.js</span>
       </a>
     
@@ -480,7 +480,7 @@ It's called directly after <code>setupDefaults()</code>, so everything is ready 
   <div class='clearfix'>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/v3rndale/core/blob/d8234b2f2dd0838600d9bef2099856dcd5e0e98c/src/Component.js#L127-L134'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/v3rndale/core/blob/a634ad8ea485e8e4994574cb393a05b7bf4369f5/src/Component.js#L127-L134'>
       <span>src/Component.js</span>
       </a>
     
@@ -577,7 +577,7 @@ It's called directly after <code>setupDefaults()</code>, so everything is ready 
   <div class='clearfix'>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/v3rndale/core/blob/d8234b2f2dd0838600d9bef2099856dcd5e0e98c/src/Component.js#L144-L146'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/v3rndale/core/blob/a634ad8ea485e8e4994574cb393a05b7bf4369f5/src/Component.js#L144-L146'>
       <span>src/Component.js</span>
       </a>
     
@@ -649,21 +649,24 @@ It's called directly after <code>setupDefaults()</code>, so everything is ready 
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/v3rndale/core/blob/d8234b2f2dd0838600d9bef2099856dcd5e0e98c/src/index.js#L83-L105'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/v3rndale/core/blob/a634ad8ea485e8e4994574cb393a05b7bf4369f5/src/index.js#L87-L109'>
       <span>src/index.js</span>
       </a>
     
   </div>
   
 
-  <p>Creates bundles from components that are defined in this method.
-This is to be used for the main entry points for your component initialization.</p>
-<p><code>create()</code> allows you to import any component(s) at runtime as long as the DOM element is on the page.
-This method should be used to load JavaScript chunks at runtime that you don not want in the main or common budle
+  <p>Creates bundles from modules that are defined in this method.
+This is to be used for the main entry points for your module initialization.</p>
+<p><code>create()</code> allows you to import any module(s) at runtime as long as the DOM element is on the page.
+This method should be used to load JavaScript chunks at runtime that you don not want in the main or common bundle
 and is used with the <a href="#component">Component</a> and <a href="#render">render</a> method to loop through each matched element on the page.</p>
-<p>You must have a <code>data-component</code> attribute that is the same name as the JavaScript class in the HTML
+<p>You must have a <code>data-module</code> attribute that is the same name as the JavaScript file in the HTML
 in order for <code>create()</code> to detect the component.</p>
-<p><strong>This method will automatically look in the <code>src/js/components</code> folder</strong> - <em>this cannot be changed</em></p>
+<p>The JavaScript file you are importing does <strong>not</strong> have to be a <code>class</code>; it could be anything - ie. a single function,
+an object, or a collection of utility functions.</p>
+<p><strong>This method will automatically look in the <code>src/js/modules</code> folder</strong> - <em>this cannot be changed</em> because we are
+using dynamic imports and it needs a reliable, hardcoded folder to look in order to chunk files properly.</p>
 
 
   <div class='pre p1 fill-light mt0'>create(organisms: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>>): void</div>
@@ -684,7 +687,7 @@ in order for <code>create()</code> to detect the component.</p>
         <div class='space-bottom0'>
           <div>
             <span class='code bold'>organisms</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>>)</code>
-	    An array of components to be imported.
+	    An array of modules to be imported.
 
           </div>
           
@@ -713,7 +716,7 @@ in order for <code>create()</code> to detect the component.</p>
                 <tr>
   <td class='break-word'><span class='code bold'>organisms[].render</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">Function</a></code>
   </td>
-  <td class='break-word'><span>Function used to intercept the rendering of the component.
+  <td class='break-word'><span>Function used to intercept the rendering of the module.
 </span></td>
 </tr>
 
@@ -742,13 +745,13 @@ in order for <code>create()</code> to detect the component.</p>
     <div class='py1 quiet mt1 prose-big'>Example</div>
     
       
-      <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">//'Foo' is the name of the JavaScript class</span>
-&lt;div data-component=<span class="hljs-string">"Foo"</span>&gt;<span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
-<span class="hljs-comment">//'Bar' is the name of the JavaScript class</span>
-&lt;div data-component=<span class="hljs-string">"Bar"</span>&gt;<span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span></pre>
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">//'Foo' is the name of the JavaScript file</span>
+&lt;div data-<span class="hljs-built_in">module</span>=<span class="hljs-string">"Foo"</span>&gt;<span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
+<span class="hljs-comment">//'Bar' is the name of the JavaScript file</span>
+&lt;div data-<span class="hljs-built_in">module</span>=<span class="hljs-string">"Bar"</span>&gt;<span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span></pre>
     
       
-      <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">//create simple components</span>
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">//create simple modules</span>
 
 <span class="hljs-comment">//-- src/js/main.js</span>
 <span class="hljs-keyword">import</span> create <span class="hljs-keyword">from</span> <span class="hljs-string">'@verndale/core'</span>;
@@ -761,7 +764,7 @@ in order for <code>create()</code> to detect the component.</p>
 create(organisms);</pre>
     
       
-      <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">//define some properties to the component</span>
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">//define some properties to the module "Bar"</span>
 
 <span class="hljs-comment">//-- src/js/main.js</span>
 <span class="hljs-keyword">import</span> create <span class="hljs-keyword">from</span> <span class="hljs-string">'@verndale/core'</span>;
@@ -823,7 +826,7 @@ create(organisms);</pre>
     </h3>
     
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/v3rndale/core/blob/d8234b2f2dd0838600d9bef2099856dcd5e0e98c/src/render.js#L15-L43'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/v3rndale/core/blob/a634ad8ea485e8e4994574cb393a05b7bf4369f5/src/render.js#L15-L43'>
       <span>src/render.js</span>
       </a>
     
