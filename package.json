@@ -60,5 +60,13 @@
     "rimraf": "2.6.2",
     "run-sequence": "2.2.1",
     "webpack": "4.12.1"
-  }
+  },
+  "keywords": [
+    "import",
+    "webpack",
+    "chunking",
+    "code-splitting",
+    "es6",
+    "dynamic-import"
+  ]
 }

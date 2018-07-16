@@ -101,9 +101,6 @@ function create(organisms: Array<Object>): void {
         render(el, $target => {
           new module($target, organism.props);
         });
-      })
-      .catch(err => {
-        throw new Error(`There was an error importing the module - ${err}`);
       });
   });
 }
