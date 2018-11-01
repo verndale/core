@@ -88,7 +88,7 @@ async function importModule(name: string, src: string) {
 
   const fullFilePath: string = filePath !== '' ? path.join(src, filePath, fileName) : path.join(src, fileName);
 
-  return await import(`../../../../src/${fullFilePath}`)
+  return await import(`../../../../src/${fullFilePath}.js`)
     .then(module => {
       return {
         module: module.default,
