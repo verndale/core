@@ -17,7 +17,7 @@ import Component from './Component';
  * The JavaScript file you are importing does **not** have to be a `class`; it could be anything - ie. a single function,
  * an object, or a collection of utility functions.
  *
- * **This method will automatically look in the `src/js/modules` folder** - *this cannot be changed* because we are
+ * **This method will automatically look in the `src` folder** - *this cannot be changed* because we are
  * using dynamic imports and it needs a reliable, hardcoded folder to look in order to chunk files properly.
  *
  * @example
@@ -37,7 +37,9 @@ import Component from './Component';
  *   { name: 'global/Bar' }
  * ];
  *
- * create(organisms);
+ * create(organisms, 'js/modules');
+ *
+ * //This will fetch the modules: `./js/modules/Foo.js` and `./js/modules/global/Bar.js`
  *
  * @example
  * //define some properties to the module "Bar"
@@ -55,7 +57,7 @@ import Component from './Component';
  *   }
  * ];
  *
- * create(organisms);
+ * create(organisms, 'js/modules');
  *
  * @example
  * //intercept the render method in case we want to bring
@@ -78,15 +80,16 @@ import Component from './Component';
  *   }
  * ];
  *
- * create(organisms);
+ * create(organisms, 'js/modules');
  *
  * @param {Array<Object>} organisms - An array of modules to be imported.
  * @param {String} organisms[].name - The path/name of the JavaScript file.
  * @param {Function} organisms[].render - Function used to intercept the rendering of the module.
+ * @param {String} src - Path to the JavaScript files you wish to dynamically bundle.
  */
-function create(organisms: Array<Object>): void {
+function create(organisms: Array<Object>, src: string): void {
   organisms.forEach(organism => {
-    importModule(organism.name)
+    importModule(organism.name, src)
       .then(data => {
         if (!data) return;
 
