@@ -1,6 +1,6 @@
 {
   "name": "@verndale/core",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "Collection of JavaScript helpers meant to be used for core development.",
   "license": "MIT",
   "main": "lib/index.js",
