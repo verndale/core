@@ -12,7 +12,7 @@
  * @param {Object} el - The DOM object to be used to iterate through.
  * @param {Function} cb - Callback which returns the raw element.
  */
-function render(el: Object, cb: Object => mixed): void {
+function render(el: Object | string, cb: Object => mixed): void {
   if (!el || el === '') {
     throw new Error('You must define a dom object.');
   }
@@ -29,15 +29,7 @@ function render(el: Object, cb: Object => mixed): void {
     throw new TypeError('You must provide a Function.');
   }
 
-  const length: number = el.length;
-
-  if (length === 1){
-    cb(el[0]);
-
-    return;
-  }
-
-  for(let i = 0; i < length; i++) {
+  for(let i = 0; i < el.length; i++) {
     cb(el[i]);
   }
 }

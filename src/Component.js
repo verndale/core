@@ -29,7 +29,7 @@ const configuration = new WeakMap();
  * // Create a new Foo component
  * new Foo('.foo');
  *
- * @param {string|Object} el - Main DOM element, you can pass a string such as `'.foo'` __or__ a dom object such as `$('.foo')`
+ * @param {string|Object} el - Main DOM element, you can pass a string such as `'.foo'` __or__ a DOM object
  * @param {Object} [props={}] - Additional component configuration; reachable with `this.props`
  */
 class Component {
@@ -40,13 +40,21 @@ class Component {
 
     /**
      * Main class element, this will be a jQuery instance
-     * This can be reachable at any time in your subclass with `this.$el`
+     * This can be reachable at any time in your subclass with `this.$el` after `super()` is called
      *
      * @type {Object}
      */
     this.$el = el instanceof jQuery ? el : $(el);
 
-    if (this.$el.length === 0) return;
+    /**
+     * Main class element, this will be a native Node instance
+     * This can be reachable at any time in your subclass with `this.el` after `super()` is called
+     *
+     * @type {Object}
+     */
+    this.el = el;
+
+    if (this.$el.length === 0 && this.el.length === 0) return;
 
     domTree.set(this, {});
     configuration.set(this, props);
