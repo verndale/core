@@ -44,7 +44,9 @@ class Component {
      *
      * @type {Object}
      */
-    this.$el = el instanceof jQuery ? el : $(el);
+    if (typeof jQuery !== 'undefined') {
+      this.$el = el instanceof jQuery ? el : $(el);
+    }
 
     /**
      * Main class element, this will be a native Node instance
