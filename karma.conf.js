@@ -1,6 +1,9 @@
 const path = require('path');
 const webpack = require('karma-webpack');
 const wp = require('webpack');
+const puppeteer = require('puppeteer');
+
+process.env.CHROME_BIN = puppeteer.executablePath();
 
 module.exports = function (config) {
   config.set({
@@ -14,8 +17,8 @@ module.exports = function (config) {
         included: false
       }
     ],
-    plugins: [webpack, 'karma-jasmine', 'karma-phantomjs-launcher', 'karma-spec-reporter', 'karma-coverage-istanbul-reporter'],
-    browsers: ['PhantomJS'],
+    plugins: [webpack, 'karma-jasmine', 'karma-chrome-launcher', 'karma-spec-reporter', 'karma-coverage-istanbul-reporter'],
+    browsers: ['ChromeHeadless'],
     coverageReporter: {
       dir: path.join(__dirname, 'docs/coverage'),
       reporters: [
