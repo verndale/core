@@ -35,17 +35,7 @@ const configuration = new WeakMap();
 class Component {
   constructor(el, props = {}){
     if (typeof el === 'undefined') {
-      throw new Error('You must provide an element as a String type or a jQuery object type');
-    }
-
-    /**
-     * Main class element, this will be a jQuery instance
-     * This can be reachable at any time in your subclass with `this.$el` after `super()` is called
-     *
-     * @type {Object}
-     */
-    if (typeof jQuery !== 'undefined') {
-      this.$el = el instanceof jQuery ? el : $(el);
+      throw new Error('You must provide an element as a String type, HTMLELement, NodeList, or a jQuery object type');
     }
 
     /**
@@ -56,7 +46,26 @@ class Component {
      */
     this.el = el;
 
-    if (this.$el.length === 0 && this.el.length === 0) return;
+    /**
+     * Main class element, this will be a jQuery instance
+     * This can be reachable at any time in your subclass with `this.$el` after `super()` is called
+     *
+     * @type {Object}
+     */
+    if (typeof jQuery !== 'undefined') {
+      this.$el = el instanceof jQuery ? el : $(el);
+
+      if (this.$el.length === 0) {
+        return;
+      }
+    }
+
+    if (
+      !this.$el &&
+      !(this.el instanceof HTMLElement || this.el instanceof NodeList)
+    ) {
+      return;
+    }
 
     domTree.set(this, {});
     configuration.set(this, props);

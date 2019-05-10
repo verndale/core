@@ -214,6 +214,8 @@ module.exports = {
     'Promise': true,
     "WeakMap": true,
     "jQuery": true,
-    "$": true
+    "$": true,
+    "NodeList": true,
+    "HTMLElement": true
   }
 };
