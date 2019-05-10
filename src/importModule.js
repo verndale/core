@@ -78,7 +78,7 @@
  * @returns {Promise.<Object>} - Returns a `data` object that holds the default module and the element `(data.module, data.el)`
  *
  */
-function importModule(name: String, loader: () => Promise<any>) {
+function importModule(name: string, loader: () => Promise<any>) {
   const el = document.querySelectorAll(`[data-module="${name}"]`);
 
   if (el.length === 0) {
