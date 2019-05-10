@@ -1,5 +1,4 @@
 // @flow
-import path from 'path';
 
 /**
  * @ignore
@@ -29,7 +28,7 @@ import path from 'path';
  * import { importModule, render } from '@verndale/core';
  *
  * //import a single module/class called Foo.js located in src/js/modules
- * importModule('Foo').then(data => {
+ * importModule('Foo', () => './modules/Foo').then(data => {
  *     if(!data) return;
  *     const { module, el } = data;
  *
@@ -61,7 +60,7 @@ import path from 'path';
  * import { importComponent, render } from '@verndale/core';
  *
  * //import a single module and add some additional properties
- * importModule('global/Bar').then(data => {
+ * importModule('Bar', () => import('./modules/global/Bar')).then(data => {
  *     if(!data) return;
  *     const { module, el } = data;
  *
@@ -74,21 +73,19 @@ import path from 'path';
  *   });
  *
  * @see {@link create}
- * @param {String} name - Path/name of the file you want to import relative to `./src/`.
- * @param {String} src - Path to the JavaScript files you wish to dynamically bundle.
+ * @param {String} name - Name of the module.
+ * @param {String} loader - Dynamic import function `() => import('module-path')`
  * @returns {Promise.<Object>} - Returns a `data` object that holds the default module and the element `(data.module, data.el)`
  *
  */
-async function importModule(name: string, src: string) {
-  const fileName: string = name.split('/').pop();
-  const filePath: string = name.substring(0, name.lastIndexOf('/'));
-  const el: NodeList<HTMLElement> = document.querySelectorAll(`[data-module=${fileName}]`);
+function importModule(name: String, loader: () => Promise<any>) {
+  const el = document.querySelectorAll(`[data-module="${name}"]`);
 
-  if (el.length === 0) return;
+  if (el.length === 0) {
+    return Promise.resolve();
+  }
 
-  const fullFilePath: string = filePath !== '' ? path.join(src, filePath, fileName) : path.join(src, fileName);
-
-  return await import(`../../../../src/${fullFilePath}.js`)
+  return loader()
     .then(module => {
       return {
         module: module.default,

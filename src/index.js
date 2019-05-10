@@ -48,8 +48,8 @@ import Component from './Component';
  * import create from '@verndale/core';
  *
  * const organisms = [
- *   { name: 'Foo' },
- *   { name: 'global/Bar',
+ *   { name: 'Foo', loader: () => import('./modules/Foo') },
+ *   { name: 'Bar', loader: () => import('./modules/global/Foo')
  *      props: {
  *       firstName: 'foo',
  *       lastName: 'bar'
@@ -57,7 +57,7 @@ import Component from './Component';
  *   }
  * ];
  *
- * create(organisms, 'js/modules');
+ * create(organisms);
  *
  * @example
  * //intercept the render method in case we want to bring
@@ -69,6 +69,7 @@ import Component from './Component';
  * //in this case, `Foo.js` is a react component
  * const organisms = [
  *   { name: 'Foo',
+ *     loader: () => import('./modules/Foo'),
  *     render(Component, el){
  *       const React = require('react');
  *       const { render } = require('react-dom');
@@ -82,12 +83,13 @@ import Component from './Component';
  *
  * @param {Array<Object>} organisms - An array of modules to be imported.
  * @param {String} organisms[].name - The path/name of the JavaScript file.
+ * @param {String} organisms[].loader - Dynamic Import Function `() => import('module-path')`
  * @param {Function} organisms[].render - Function used to intercept the rendering of the module.
- * @param {String} src - Path to the JavaScript files you wish to dynamically bundle.
+ * @param {Function} organisms[].props - Object used to send properties to the module.
  */
-function create(organisms: Array<Object>, src: string): void {
+function create(organisms: Array<Object>): void {
   organisms.forEach(organism => {
-    importModule(organism.name, src)
+    importModule(organism.name, organism.loader)
       .then(data => {
         if (!data) return;
 
