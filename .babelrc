@@ -1,7 +1,6 @@
 {
   "presets": [
-    "stage-0",
-    ["env", {
+    ["@babel/preset-env", {
       "targets": {
         "browsers": ["> 5%", "ie >= 11"]
       },
@@ -9,7 +8,7 @@
     }]
   ],
   "plugins": [
-    "transform-object-assign",
-    "transform-flow-strip-types"
+    "@babel/plugin-transform-object-assign",
+    "@babel/plugin-transform-flow-strip-types"
   ]
 }
