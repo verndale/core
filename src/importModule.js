@@ -20,7 +20,7 @@
  *   constructor(el){
  *     super(el);
  *
- *     console.log(this.$el);
+ *     console.log(this.el);
  *   }
  * }
  *
@@ -49,7 +49,7 @@
  *   constructor(el, props){
  *     super(el, props);
  *
- *     console.log(this.$el);
+ *     console.log(this.el);
  *
  *     console.log(this.props.firstName);
  *     console.log(this.props.lastName);

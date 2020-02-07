@@ -46,13 +46,13 @@ class Component {
      */
     this.el = el;
 
-    /**
-     * Main class element, this will be a jQuery instance
-     * This can be reachable at any time in your subclass with `this.$el` after `super()` is called
-     *
-     * @type {Object}
-     */
     if (typeof jQuery !== 'undefined') {
+      /**
+       * Main class element, this will be a jQuery instance
+       * This can be reachable at any time in your subclass with `this.$el` after `super()` is called
+       *
+       * @type {Object}
+       */
       this.$el = el instanceof jQuery ? el : $(el);
 
       if (this.$el.length === 0) {
@@ -60,10 +60,7 @@ class Component {
       }
     }
 
-    if (
-      !this.$el &&
-      !(this.el instanceof HTMLElement || this.el instanceof NodeList)
-    ) {
+    if (!this.$el && !(this.el instanceof HTMLElement || this.el instanceof NodeList)) {
       return;
     }
 
