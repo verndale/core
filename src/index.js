@@ -35,7 +35,9 @@ import Component from './Component';
  *   { name: 'Bar', loader: () => import('./modules/global/Bar') }
  * ];
  *
- * create(organisms);
+ * document.addEventListener('DOMContentLoaded', () => {
+ *   create(organisms);
+ * }
  *
  * //This will fetch the modules: `./modules/Foo.js` and `./modules/global/Bar.js`
  *
@@ -55,12 +57,39 @@ import Component from './Component';
  *   }
  * ];
  *
- * create(organisms);
+ * document.addEventListener('DOMContentLoaded', () => {
+ *   create(organisms);
+ * }
+ *
+ * @example
+ * //intercept the render method in case we want to bring
+ * //in other libraries or do anything else prior to render/instantiation.
+ *
+ * //-- src/js/main.js
+ * import create from '@verndale/core';
+ *
+ * //in this case, `Foo.js` is a react component
+ * const organisms = [
+ *   { name: 'Foo',
+ *     loader: () => import('./modules/Foo'),
+ *     render(Component, el){
+ *       const React = require('react');
+ *       const { render } = require('react-dom');
+ *
+ *       render(<Component {...el[0].dataset} />, el[0]);
+ *     }
+ *   }
+ * ];
+ *
+ * document.addEventListener('DOMContentLoaded', () => {
+ *   create(organisms);
+ * }
  *
  *
  * @param {Array<Object>} organisms - An array of modules to be imported.
  * @param {String} organisms[].name - The path/name of the JavaScript file.
  * @param {String} organisms[].loader - Dynamic Import Function `() => import('module-path')`
+ * @param {Function} organisms[].render - Function used to intercept the rendering of the module.
  * @param {Function} organisms[].props - Object used to send properties to the module.
  */
 function create(organisms: Array<Object>): void {
@@ -70,6 +99,12 @@ function create(organisms: Array<Object>): void {
         if (!data) return;
 
         const { module, el } = data;
+
+        if (organism.render && typeof organism.render === 'function'){
+          organism.render(module, el);
+
+          return;
+        }
 
         render(el, $target => {
           new module($target, organism.props);
