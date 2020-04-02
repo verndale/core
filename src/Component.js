@@ -35,7 +35,7 @@ const configuration = new WeakMap();
 class Component {
   constructor(el, props = {}){
     if (typeof el === 'undefined') {
-      throw new Error('You must provide an element as a String type, HTMLELement, NodeList, or a jQuery object type');
+      throw new Error('You must provide an element as a String type, HTMLELement or NodeList');
     }
 
     /**
@@ -46,21 +46,7 @@ class Component {
      */
     this.el = el;
 
-    if (typeof jQuery !== 'undefined') {
-      /**
-       * Main class element, this will be a jQuery instance
-       * This can be reachable at any time in your subclass with `this.$el` after `super()` is called
-       *
-       * @type {Object}
-       */
-      this.$el = el instanceof jQuery ? el : $(el);
-
-      if (this.$el.length === 0) {
-        return;
-      }
-    }
-
-    if (!this.$el && !(this.el instanceof HTMLElement || this.el instanceof NodeList)) {
+    if (!(this.el instanceof HTMLElement || this.el instanceof NodeList)) {
       return;
     }
 
