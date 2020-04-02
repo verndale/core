@@ -35,7 +35,7 @@ const configuration = new WeakMap();
 class Component {
   constructor(el, props = {}){
     if (typeof el === 'undefined') {
-      throw new Error('You must provide an element as a String type, HTMLELement or NodeList');
+      throw new Error('You must provide an element as a String type, HTMLELement, NodeList, or a jQuery object type');
     }
 
     /**
@@ -46,7 +46,7 @@ class Component {
      */
     this.el = el;
 
-    if (!(this.el instanceof HTMLElement || this.el instanceof NodeList)) {
+    if (!this.el && !(this.el instanceof HTMLElement || this.el instanceof NodeList)) {
       return;
     }
 
