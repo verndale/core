@@ -51,7 +51,7 @@
     "karma-safari-launcher": "1.0.0",
     "karma-spec-reporter": "0.0.32",
     "karma-webpack": "4.0.2",
-    "minimist": "1.2.2",
+    "minimist": "1.2.3",
     "puppeteer": "2.1.1",
     "rimraf": "3.0.1",
     "run-sequence": "2.2.1",
