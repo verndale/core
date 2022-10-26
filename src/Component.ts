@@ -27,16 +27,34 @@ const configuration = new WeakMap();
  * }
  *
  * // Create a new Foo component
- * new Foo('.foo');
+ * new Foo(document.querySelector('.foo'));
  *
- * @param {string|Object} el - Main DOM element, you can pass a string such as `'.foo'` __or__ a DOM object
+ * @param {Object} el - Main DOM element, you can pass a DOM object
  * @param {Object} [props={}] - Additional component configuration; reachable with `this.props`
  */
-class Component {
-  constructor(el, props = {}){
-    if (typeof el === 'undefined') {
-      throw new Error('You must provide an element as a String type, HTMLELement, NodeList, or a jQuery object type');
-    }
+
+interface Component {
+  /**
+   * This method is used for override;
+   * It's called directly after the element and configuration have been set up
+   * @abstract
+   */
+  setupDefaults?(): void;
+  /**
+   * This method is used for override;
+   * It's called directly after `setupDefaults()`, so everything is ready and setup at this point.
+   * @abstract
+   */
+  addListeners?(): void;
+}
+
+abstract class Component {
+  constructor(private el: HTMLElement | NodeList, props = {}) {
+    // if (typeof el === 'undefined') {
+    //   throw new Error(
+    //     'You must provide an element as a ELement or NodeList type'
+    //   );
+    // }
 
     /**
      * Main class element, this will be a native Node instance
@@ -46,34 +64,23 @@ class Component {
      */
     this.el = el;
 
-    if (!this.el && !(this.el instanceof HTMLElement || this.el instanceof NodeList)) {
+    if (
+      !this.el ||
+      !(this.el instanceof HTMLElement || this.el instanceof NodeList)
+    ) {
       return;
     }
 
     domTree.set(this, {});
     configuration.set(this, props);
 
-    if (this.props.hasOwnProperty('dom')) {
+    if (Object.prototype.hasOwnProperty.call(this.props, "dom")) {
       this.dom = this.props.dom;
     }
 
-    this.setupDefaults();
-    this.addListeners();
+    this.setupDefaults && this.setupDefaults();
+    this.addListeners && this.addListeners();
   }
-
-  /**
-   * This method is used for override;
-   * It's called directly after the element and configuration have been set up
-   * @abstract
-   */
-  setupDefaults(){}
-
-  /**
-   * This method is used for override;
-   * It's called directly after `setupDefaults()`, so everything is ready and setup at this point.
-   * @abstract
-   */
-  addListeners(){}
 
   /**
    * Get component configuration.
@@ -90,13 +97,13 @@ class Component {
    * }
    *
    * // Create a new Foo component with some configuration
-   * new Foo('.foo', {
+   * new Foo(document.querySelector('.foo'), {
    *   name: 'Foo'
    * });
    *
    * @type {Object}
    */
-  get props(){
+  get props() {
     return configuration.get(this);
   }
 
@@ -122,14 +129,14 @@ class Component {
    * }
    *
    * // Create a new Foo component
-   * new Foo('.foo');
+   * new Foo(document.querySelector('.foo'));
    *
    * @type {Object}
    */
-  set dom(elements){
+  set dom(elements) {
     elements = {
       ...this.dom,
-      ...elements
+      ...elements,
     };
 
     domTree.set(this, elements);
@@ -143,7 +150,7 @@ class Component {
    *
    * @type {Object}
    */
-  get dom(){
+  get dom() {
     return domTree.get(this);
   }
 }

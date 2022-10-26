@@ -2,12 +2,10 @@
 /__tests__/
 /node_modules/
 /docs/
-.babelrc
 .editorconfig
 .esdoc.json
 .eslintignore
 .eslintrc.js
-.flowconfig
 .gitignore
 .npmignore
 .travis.yml

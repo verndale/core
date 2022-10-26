@@ -1,4 +1,6 @@
 /node_modules/
 /__tests__/
 /docs/
+/lib/
 karma.conf.js
+.eslintrc.js

@@ -1,8 +1,6 @@
-// @flow
-import importModule from './importModule';
-import render from './render';
-import Component from './Component';
-
+import importModule from "./importModule";
+import render from "./render";
+import Component from "./Component";
 /**
  * Creates bundles from modules that are defined in this method.
  * This is to be used for the main entry points for your module initialization.
@@ -87,36 +85,18 @@ import Component from './Component';
  *
  *
  * @param {Array<Object>} organisms - An array of modules to be imported.
- * @param {String} organisms[].name - The path/name of the JavaScript file.
+ * @param {String} organisms[].name - The reference name of the module.
  * @param {String} organisms[].loader - Dynamic Import Function `() => import('module-path')`
+ * @param {String} organisms[].styles - Dynamic Import Function `() => import('styles-path')`
  * @param {Function} organisms[].render - Function used to intercept the rendering of the module.
- * @param {Function} organisms[].props - Object used to send properties to the module.
+ * @param {Function} organisms[].props - Object used to send properties to the javascript module.
  */
-function create(organisms: Array<Object>): void {
-  organisms.forEach(organism => {
-    importModule(organism.name, organism.loader)
-      .then(data => {
-        if (!data) return;
-
-        const { module, el } = data;
-
-        if (organism.render && typeof organism.render === 'function'){
-          organism.render(module, el);
-
-          return;
-        }
-
-        render(el, $target => {
-          new module($target, organism.props);
-        });
-      });
-  });
-}
-
-export default create;
-
-export {
-  render,
-  importModule,
-  Component
-}
+declare type Organism = {
+    name: string;
+    loader?: () => Promise<any>;
+    styles?: () => Promise<any>;
+    render?: (module: any, el: NodeListOf<Element>) => void;
+    props?: object;
+};
+export default function create(organisms: Array<Organism>): void;
+export { render, importModule, Component };

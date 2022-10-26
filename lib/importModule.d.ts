@@ -1,5 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * @ignore
  *
@@ -78,20 +76,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * @returns {Promise.<Object>} - Returns a `data` object that holds the default module and the element `(data.module, data.el)`
  *
  */
-function importModule(name, loader) {
-    var el = document.querySelectorAll("[data-module=\"".concat(name, "\"]"));
-    if (el.length === 0) {
-        return Promise.resolve();
-    }
-    return loader()
-        .then(function (module) {
-        return {
-            module: module.default,
-            el: el,
-        };
-    })
-        .catch(function (err) {
-        Promise.reject(new Error("There was an error loading your module - ".concat(err)));
-    });
-}
-exports.default = importModule;
+declare function importModule(name: string, loader: () => Promise<any>): Promise<void | {
+    module: any;
+    el: NodeListOf<HTMLElement>;
+}>;
+export default importModule;

@@ -1,6 +1,6 @@
 {
   "name": "@verndale/core",
-  "version": "1.1.3",
+  "version": "2.0.0",
   "description": "Collection of JavaScript helpers meant to be used for core development.",
   "license": "MIT",
   "main": "lib/index.js",
@@ -19,43 +19,29 @@
     "preversion": "rimraf ./docs ./lib && npm test",
     "version": "npm run build && git add .",
     "postversion": "git push origin master --tags",
-    "status": "flow status",
-    "lint": "eslint --fix --color --debug --ignore-path .eslintignore ./src/*.js",
-    "test": "npm run status && npm run lint && karma start --single-run --no-auto-watch",
-    "build": "documentation build dom/* src/* -f html -g true -o docs && npx babel src --out-dir lib"
+    "lint": "eslint --fix --color --debug --ignore-path .eslintignore ./src/*.ts",
+    "test": "tsc --noEmit && npm run lint && karma start --single-run --no-auto-watch",
+    "build": "documentation build src/* -f html -g true -o docs && tsc"
   },
   "devDependencies": {
-    "@babel/cli": "7.8.4",
-    "@babel/core": "7.8.4",
-    "@babel/plugin-transform-flow-strip-types": "7.8.3",
-    "@babel/plugin-transform-object-assign": "7.8.3",
-    "@babel/preset-env": "7.8.4",
-    "babel-eslint": "10.0.3",
-    "babel-loader": "8.0.6",
-    "babel-polyfill": "6.26.0",
-    "babel-runtime": "6.26.0",
-    "documentation": "12.1.4",
-    "eslint": "6.8.0",
-    "eslint-plugin-flowtype": "4.6.0",
-    "flow-bin": "0.118.0",
-    "isparta-loader": "2.0.0",
-    "istanbul": "0.4.5",
-    "istanbul-instrumenter-loader": "3.0.1",
-    "jasmine-core": "3.5.0",
-    "jasmine-jquery": "2.1.1",
-    "jquery": "3.5.0",
-    "karma": "^4.4.1",
-    "karma-chrome-launcher": "2.2.0",
-    "karma-coverage-istanbul-reporter": "2.0.4",
-    "karma-jasmine": "2.0.1",
-    "karma-safari-launcher": "1.0.0",
-    "karma-spec-reporter": "0.0.32",
-    "karma-webpack": "4.0.2",
-    "minimist": "1.2.3",
-    "puppeteer": "2.1.1",
-    "rimraf": "3.0.1",
-    "run-sequence": "2.2.1",
-    "webpack": "4.41.5"
+    "@types/jasmine": "^4.3.0",
+    "@types/jasmine-jquery": "^1.5.34",
+    "@typescript-eslint/eslint-plugin": "^5.41.0",
+    "@typescript-eslint/parser": "^5.41.0",
+    "documentation": "^14.0.0",
+    "eslint": "^8.26.0",
+    "jasmine-core": "^4.4.0",
+    "jquery": "^3.6.1",
+    "karma": "^6.4.1",
+    "karma-chrome-launcher": "^3.1.1",
+    "karma-coverage-istanbul-reporter": "^3.0.3",
+    "karma-jasmine": "^5.1.0",
+    "karma-safari-launcher": "^1.0.0",
+    "karma-spec-reporter": "^0.0.34",
+    "karma-typescript": "^5.5.3",
+    "puppeteer": "^19.2.0",
+    "rimraf": "^3.0.2",
+    "typescript": "^4.8.4"
   },
   "keywords": [
     "import",
@@ -64,5 +50,8 @@
     "code-splitting",
     "es6",
     "dynamic-import"
-  ]
+  ],
+  "dependencies": {
+    "jasmine-jquery": "^2.1.1"
+  }
 }

@@ -1,67 +1,39 @@
-const path = require('path');
-const webpack = require('karma-webpack');
-const wp = require('webpack');
-const puppeteer = require('puppeteer');
+const path = require("path");
+const puppeteer = require("puppeteer");
 
 process.env.CHROME_BIN = puppeteer.executablePath();
 
 module.exports = function (config) {
   config.set({
-    frameworks: ['jasmine'],
+    frameworks: ["jasmine", "karma-typescript"],
     files: [
-      './node_modules/babel-polyfill/dist/polyfill.js',
-      '__tests__/**/*-test.js',
+      "__tests__/**/*-test.ts",
+      "src/**/*.ts",
       {
-        pattern: '__tests__/__fixtures__/**/*.html',
+        pattern: "__tests__/__fixtures__/**/*.html",
         served: true,
-        included: false
-      }
+        included: false,
+      },
     ],
-    plugins: [webpack, 'karma-jasmine', 'karma-chrome-launcher', 'karma-spec-reporter', 'karma-coverage-istanbul-reporter'],
-    browsers: ['ChromeHeadless'],
+    plugins: [
+      "karma-typescript",
+      "karma-jasmine",
+      "karma-chrome-launcher",
+      "karma-spec-reporter",
+      "karma-coverage-istanbul-reporter",
+    ],
+    browsers: ["ChromeHeadless"],
     coverageReporter: {
-      dir: path.join(__dirname, 'docs/coverage'),
-      reporters: [
-        { type: 'lcov', subdir: 'reports' }
-      ]
+      dir: path.join(__dirname, "docs/coverage"),
+      reporters: [{ type: "lcov", subdir: "reports" }],
     },
     coverageIstanbulReporter: {
-      dir: path.join(__dirname, 'docs/coverage'),
+      dir: path.join(__dirname, "docs/coverage"),
     },
-    reporters: ['spec', 'coverage-istanbul'],
+    reporters: ["spec", "karma-typescript", "coverage-istanbul"],
     colors: true,
     preprocessors: {
-      '__tests__/**/*-test.js': ['webpack']
+      "**/*.ts": ["karma-typescript"],
     },
-    webpack: {
-      mode: 'development',
-      plugins: [
-        new wp.ProvidePlugin({
-          $: 'jquery',
-          jQuery: 'jquery'
-        })
-      ],
-      module: {
-        rules: [
-          {
-            test: /\.js?$/,
-            exclude: /(node_modules)/,
-            use: {
-              loader: 'babel-loader'
-            }
-          },
-          {
-            test: /\.js/,
-            enforce: 'post',
-            exclude: /(__tests__|node_modules)/,
-            use: {
-              loader: 'istanbul-instrumenter-loader',
-              options: { esModules: true }
-            }
-          }
-        ]
-      }
-    },
-    webpackMiddleware: { noInfo: true }
   });
 };
