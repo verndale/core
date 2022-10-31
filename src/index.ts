@@ -98,8 +98,8 @@ type Organism = {
   name: string;
   loader?: () => Promise<any>;
   styles?: () => Promise<any>;
-  render?: (module: any, el: NodeListOf<Element>) => void;
-  props?: object;
+  render?: (module: unknown, el: NodeListOf<Element>) => void;
+  props?: any;
 };
 
 export default function create(organisms: Array<Organism>): void {

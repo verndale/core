@@ -1,3 +1,10 @@
+declare type DomElements = {
+    [key: string]: Element | NodeListOf<Element> | null;
+};
+declare type Props = {
+    dom?: DomElements;
+    [key: string]: unknown;
+};
 /**
  * `Component` is a class that should be extended for every component that's being made. It
  * is a helper class to keep the code uniform.
@@ -44,8 +51,8 @@ interface Component {
     addListeners?(): void;
 }
 declare abstract class Component {
-    private el;
-    constructor(el: HTMLElement | NodeList, props?: {});
+    protected el: Element;
+    constructor(el: Element, props?: Props);
     /**
      * Get component configuration.
      *
@@ -67,7 +74,7 @@ declare abstract class Component {
      *
      * @type {Object}
      */
-    get props(): any;
+    get props(): Props | undefined;
     /**
      * Set DOM object.
      *
@@ -94,7 +101,7 @@ declare abstract class Component {
      *
      * @type {Object}
      */
-    set dom(elements: any);
+    set dom(elements: DomElements);
     /**
      * Get DOM object.
      *
@@ -103,6 +110,6 @@ declare abstract class Component {
      *
      * @type {Object}
      */
-    get dom(): any;
+    get dom(): DomElements;
 }
 export default Component;

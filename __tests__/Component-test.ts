@@ -13,7 +13,7 @@ describe("Component", () => {
 
     beforeEach(() => {
       class Foo extends Component {
-        constructor(el: HTMLElement | NodeList) {
+        constructor(el: Element) {
           super(el);
         }
 
@@ -24,7 +24,7 @@ describe("Component", () => {
 
       spyOn<Foo, any>(Foo.prototype, "setupDefaults");
 
-      new Foo(document.querySelector(".bar") as HTMLElement);
+      new Foo(document.querySelector(".bar") as Element);
 
       foo = Foo;
     });
@@ -49,7 +49,7 @@ describe("Component", () => {
 
     beforeEach(() => {
       class Foo extends Component {
-        constructor(el: HTMLElement | NodeList) {
+        constructor(el: HTMLElement) {
           super(el);
         }
 
@@ -85,7 +85,7 @@ describe("Component", () => {
       let count = 0;
 
       class Foo extends Component {
-        constructor(el: HTMLElement | NodeList) {
+        constructor(el: Element) {
           super(el);
         }
 
@@ -98,7 +98,7 @@ describe("Component", () => {
         }
       }
 
-      const foo = new Foo(document.querySelector(".bar") as HTMLElement);
+      const foo = new Foo(document.querySelector(".bar") as Element);
 
       expect(count).toBe(2);
     });
@@ -107,7 +107,7 @@ describe("Component", () => {
   describe("config", () => {
     it("should take a props object and be accessible with this.props", () => {
       class Foo extends Component {
-        constructor(el: HTMLElement | NodeList, props: {}) {
+        constructor(el: Element, props: {}) {
           super(el, props);
         }
 
@@ -116,7 +116,7 @@ describe("Component", () => {
         }
       }
 
-      const foo = new Foo(document.querySelector(".bar") as HTMLElement, {
+      const foo = new Foo(document.querySelector(".bar") as Element, {
         name: "Joe",
         age: 34,
       });

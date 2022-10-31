@@ -1,5 +1,14 @@
-const domTree = new WeakMap();
-const configuration = new WeakMap();
+type DomElements = {
+  [key: string]: Element | NodeListOf<Element> | null;
+};
+
+type Props = {
+  dom?: DomElements;
+  [key: string]: unknown;
+};
+
+const domTree = new WeakMap<object, DomElements>();
+const configuration = new WeakMap<object, Props>();
 
 /**
  * `Component` is a class that should be extended for every component that's being made. It
@@ -49,10 +58,10 @@ interface Component {
 }
 
 abstract class Component {
-  constructor(private el: HTMLElement | NodeList, props = {}) {
+  constructor(protected el: Element, props: Props = {}) {
     // if (typeof el === 'undefined') {
     //   throw new Error(
-    //     'You must provide an element as a ELement or NodeList type'
+    //     'You must provide an element as an ELement type'
     //   );
     // }
 
@@ -64,17 +73,14 @@ abstract class Component {
      */
     this.el = el;
 
-    if (
-      !this.el ||
-      !(this.el instanceof HTMLElement || this.el instanceof NodeList)
-    ) {
+    if (!this.el || !(this.el instanceof Element)) {
       return;
     }
 
     domTree.set(this, {});
     configuration.set(this, props);
 
-    if (Object.prototype.hasOwnProperty.call(this.props, "dom")) {
+    if (this.props?.dom) {
       this.dom = this.props.dom;
     }
 
@@ -133,7 +139,7 @@ abstract class Component {
    *
    * @type {Object}
    */
-  set dom(elements) {
+  set dom(elements: DomElements) {
     elements = {
       ...this.dom,
       ...elements,
@@ -151,7 +157,7 @@ abstract class Component {
    * @type {Object}
    */
   get dom() {
-    return domTree.get(this);
+    return domTree.get(this) || {};
   }
 }
 
