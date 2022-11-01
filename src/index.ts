@@ -102,30 +102,31 @@ type Organism = {
   props?: any;
 };
 
-export default function create(organisms: Array<Organism>): void {
-  organisms.forEach((organism) => {
-    // Load js modules
-    if (organism.loader) {
-      importModule(organism.name, organism.loader).then((data) => {
+export default function create(organisms: Array<Organism>): Promise<void[]> {
+  return Promise.all(
+    organisms.map(async (organism) => {
+      // Load js modules
+      if (organism.loader) {
+        const data = await importModule(organism.name, organism.loader);
         if (!data) return;
 
         const { module, el } = data;
 
         if (organism.render && typeof organism.render === "function") {
-          return organism.render(module, el);
+          organism.render(module, el);
         }
 
         render(el, ($target) => {
           new module($target, organism.props);
         });
-      });
-    }
+      }
 
-    // Load scss modules
-    if (organism.styles) {
-      importModule(organism.name, organism.styles);
-    }
-  });
+      // Load scss modules
+      if (organism.styles) {
+        await importModule(organism.name, organism.styles);
+      }
+    })
+  );
 }
 
 export { render, importModule, Component };

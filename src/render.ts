@@ -15,25 +15,23 @@ function render(
   el: NodeListOf<HTMLElement>,
   cb: (el: HTMLElement) => void
 ): void {
-  // if (!el) {
-  //   throw new Error('You must define a dom object.');
-  // }
-
-  // if (typeof el !== 'object' || Array.isArray(el)) {
-  //   throw new TypeError('This method requires a dom object to be passed in.');
-  // }
-
-  // if (!cb) {
-  //   throw new Error('You must define a callback method.');
-  // }
-
-  // if (typeof cb !== 'function') {
-  //   throw new TypeError('You must provide a Function.');
-  // }
-
-  for (let i = 0; i < el.length; i++) {
-    cb(el[i]);
+  if (!el) {
+    throw new Error("You must define a dom object.");
   }
+
+  if (typeof el !== "object" || Array.isArray(el)) {
+    throw new TypeError("This method requires a dom object to be passed in.");
+  }
+
+  if (!cb) {
+    throw new Error("You must define a callback method.");
+  }
+
+  if (typeof cb !== "function") {
+    throw new TypeError("You must provide a Function.");
+  }
+
+  el.forEach(cb);
 }
 
 export default render;

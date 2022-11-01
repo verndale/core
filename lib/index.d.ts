@@ -96,7 +96,7 @@ declare type Organism = {
     loader?: () => Promise<any>;
     styles?: () => Promise<any>;
     render?: (module: unknown, el: NodeListOf<Element>) => void;
-    props?: object;
+    props?: any;
 };
-export default function create(organisms: Array<Organism>): void;
+export default function create(organisms: Array<Organism>): Promise<void[]>;
 export { render, importModule, Component };
