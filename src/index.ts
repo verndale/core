@@ -121,7 +121,7 @@ export default function create(organisms: Array<Organism>): Promise<void[]> {
         });
       }
 
-      // Load scss modules
+      // Load styles modules
       if (organism.styles) {
         await importModule(organism.name, organism.styles);
       }
