@@ -1,5 +1,5 @@
 declare type DomElements = {
-    [key: string]: Element | NodeListOf<Element> | null;
+    [key: string]: HTMLElement | NodeListOf<HTMLElement> | null;
 };
 declare type Props = {
     dom?: DomElements;
@@ -51,8 +51,8 @@ interface Component {
     addListeners?(): void;
 }
 declare abstract class Component {
-    protected el: Element;
-    constructor(el: Element, props?: Props);
+    protected el: HTMLElement;
+    constructor(el: HTMLElement, props?: Props);
     /**
      * Get component configuration.
      *

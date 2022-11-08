@@ -91,11 +91,11 @@ import Component from "./Component";
  * @param {Function} organisms[].render - Function used to intercept the rendering of the module.
  * @param {Function} organisms[].props - Object used to send properties to the javascript module.
  */
-declare type Organism = {
+export declare type Organism = {
     name: string;
     loader?: () => Promise<any>;
     styles?: () => Promise<any>;
-    render?: (module: unknown, el: NodeListOf<Element>) => void;
+    render?: (module: unknown, el: NodeListOf<HTMLElement>) => void;
     props?: any;
 };
 export default function create(organisms: Array<Organism>): Promise<void[]>;

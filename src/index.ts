@@ -94,11 +94,11 @@ import Component from "./Component";
  * @param {Function} organisms[].props - Object used to send properties to the javascript module.
  */
 
-type Organism = {
+export type Organism = {
   name: string;
   loader?: () => Promise<any>;
   styles?: () => Promise<any>;
-  render?: (module: unknown, el: NodeListOf<Element>) => void;
+  render?: (module: unknown, el: NodeListOf<HTMLElement>) => void;
   props?: any;
 };
 

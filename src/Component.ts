@@ -1,5 +1,5 @@
 type DomElements = {
-  [key: string]: Element | NodeListOf<Element> | null;
+  [key: string]: HTMLElement | NodeListOf<HTMLElement> | null;
 };
 
 type Props = {
@@ -58,10 +58,10 @@ interface Component {
 }
 
 abstract class Component {
-  constructor(protected el: Element, props: Props = {}) {
+  constructor(protected el: HTMLElement, props: Props = {}) {
     // if (typeof el === 'undefined') {
     //   throw new Error(
-    //     'You must provide an element as an ELement type'
+    //     'You must provide an element as an HTMLElement type'
     //   );
     // }
 
@@ -73,7 +73,7 @@ abstract class Component {
      */
     this.el = el;
 
-    if (!this.el || !(this.el instanceof Element)) {
+    if (!this.el || !(this.el instanceof HTMLElement)) {
       return;
     }
 
