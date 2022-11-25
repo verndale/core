@@ -105,26 +105,23 @@ export type Organism = {
 export default function create(organisms: Array<Organism>): Promise<void[]> {
   return Promise.all(
     organisms.map(async (organism) => {
-      // Load js modules
-      if (organism.loader) {
-        const data = await importModule(organism.name, organism.loader);
-        if (!data) return;
+      const data = await importModule(
+        organism.name,
+        organism.loader,
+        organism.styles
+      );
 
-        const { module, el } = data;
+      if (!data) return;
 
-        if (organism.render && typeof organism.render === "function") {
-          organism.render(module, el);
-        }
+      const { module, el } = data;
 
-        render(el, ($target) => {
-          new module($target, organism.props);
-        });
+      if (organism.render && typeof organism.render === "function") {
+        organism.render(module, el);
       }
 
-      // Load styles modules
-      if (organism.styles) {
-        await importModule(organism.name, organism.styles);
-      }
+      render(el, ($target) => {
+        new module($target, organism.props);
+      });
     })
   );
 }

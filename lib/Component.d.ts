@@ -17,7 +17,7 @@ declare type Props = {
  * import { Component } from '@verndale/core';
  *
  * class Foo extends Component {
- *   construction(el){
+ *   constructor(el){
  *     super(el);
  *   }
  *

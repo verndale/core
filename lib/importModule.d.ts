@@ -76,8 +76,9 @@
  * @returns {Promise.<Object>} - Returns a `data` object that holds the default module and the element `(data.module, data.el)`
  *
  */
-declare function importModule(name: string, loader: () => Promise<any>): Promise<void | {
+declare type Loader = () => Promise<any>;
+export default function importModule(name: string, loader?: Loader, styles?: Loader): Promise<void> | Promise<{
     module: any;
     el: NodeListOf<HTMLElement>;
-}>;
-export default importModule;
+}> | undefined;
+export {};
