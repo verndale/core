@@ -17,7 +17,7 @@ declare type Props = {
  * import { Component } from '@verndale/core';
  *
  * class Foo extends Component {
- *   constructor(el){
+ *   constructor(el: HTMLElement){
  *     super(el);
  *   }
  *
@@ -58,7 +58,7 @@ declare abstract class Component {
      *
      * @example
      * class Foo extends Component {
-     *   construction(el, props){
+     *   construction(el: HTMLElement, props: { name: string }){
      *     super(el, props);
      *   }
      *
@@ -80,7 +80,7 @@ declare abstract class Component {
      *
      * @example
      * class Foo extends Component {
-     *   construction(el){
+     *   construction(el: HTMLElement){
      *     super(el);
      *   }
      *
