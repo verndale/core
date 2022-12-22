@@ -1,4 +1,3 @@
-"use strict";
 /**
  * @ignore
  *
@@ -77,28 +76,44 @@
  * @returns {Promise.<Object>} - Returns a `data` object that holds the default module and the element `(data.module, data.el)`
  *
  */
-Object.defineProperty(exports, "__esModule", { value: true });
-function importModule(name, loader, styles) {
-    const el = document.querySelectorAll(`[data-module="${name}"]`);
-    if (el.length === 0) {
-        return Promise.resolve();
-    }
-    if (styles) {
-        styles().catch((err) => {
-            return Promise.reject(new Error(`There was an error loading your module's style file - ${err}`));
-        });
-    }
-    if (loader) {
-        return loader()
-            .then((module) => {
-            return {
-                module: module.default,
-                el,
-            };
-        })
-            .catch((err) => {
-            return Promise.reject(new Error(`There was an error loading your module's javascript file - ${err}`));
-        });
-    }
+
+type Loader = () => Promise<any>;
+
+export default function importModule(
+  name: string,
+  loader?: Loader,
+  styles?: Loader
+) {
+  const el = document.querySelectorAll<HTMLElement>(`[data-module="${name}"]`);
+
+  if (el.length === 0) {
+    return Promise.resolve();
+  }
+
+  if (styles) {
+    styles().catch((err) => {
+      return Promise.reject(
+        new Error(
+          `There was an error loading your module's style file - ${err}`
+        )
+      );
+    });
+  }
+
+  if (loader) {
+    return loader()
+      .then((module) => {
+        return {
+          module: module.default,
+          el,
+        };
+      })
+      .catch((err) => {
+        return Promise.reject(
+          new Error(
+            `There was an error loading your module's javascript file - ${err}`
+          )
+        );
+      });
+  }
 }
-exports.default = importModule;

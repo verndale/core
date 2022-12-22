@@ -1,5 +1,3 @@
-// @flow
-
 /**
  * @ignore
  *
@@ -9,7 +7,7 @@
  * conjunction with {@link Component}, {@link create} and {@link render} to provide a wrapper and simple interface for the engineer.
  *
  * @example
- * //'Foo' is the name of the JavaScript class
+ * //'Foo' is the name of the JavaScript reference
  * <div data-module="Foo"></div>
  *
  * @example
@@ -38,7 +36,7 @@
  *   });
  *
  * @example
- * //'Bar' is the name of the JavaScript class
+ * //'Bar' is the name of the JavaScript reference
  * <div data-module="Bar"></div>
  *
  * @example
@@ -78,23 +76,9 @@
  * @returns {Promise.<Object>} - Returns a `data` object that holds the default module and the element `(data.module, data.el)`
  *
  */
-function importModule(name: string, loader: () => Promise<any>) {
-  const el = document.querySelectorAll(`[data-module="${name}"]`);
-
-  if (el.length === 0) {
-    return Promise.resolve();
-  }
-
-  return loader()
-    .then(module => {
-      return {
-        module: module.default,
-        el
-      };
-    })
-    .catch(err => {
-      Promise.reject(new Error(`There was an error loading your module - ${err}`));
-    });
-}
-
-export default importModule;
+declare type Loader = () => Promise<any>;
+export default function importModule(name: string, loader?: Loader, styles?: Loader): Promise<void> | Promise<{
+    module: any;
+    el: NodeListOf<HTMLElement>;
+}> | undefined;
+export {};
