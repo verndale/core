@@ -1,19 +1,19 @@
 # Core
+
 > @verndale/core - JavaScript helpers for core development.
 
 [![Build Status][build-image]][build-url]
-
-[![devDependency Status][dev-dep-image]][dev-dep-url]
 [![MIT][mit-image]][mit-url]
 
 ## Install
+
 ```sh
 npm install @verndale/core --save
 ```
 
 ## Documentation
-See [documentation](https://verndale.github.io/core/) for usage and examples.
 
+See [documentation](https://verndale.github.io/core/) for usage and examples.
 
 [build-image]: https://travis-ci.com/verndale/core.svg?branch=master
 [build-url]: https://travis-ci.com/verndale/core
