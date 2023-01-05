@@ -15,6 +15,9 @@
     "type": "git",
     "url": "https://github.com/verndale/core.git"
   },
+  "engines": {
+    "node": ">= 18.0.0"
+  },
   "scripts": {
     "preversion": "rimraf ./docs ./lib && npm test",
     "version": "npm run build && git add .",
