@@ -95,7 +95,7 @@ export declare type Organism = {
     name: string;
     loader?: () => Promise<any>;
     styles?: () => Promise<any>;
-    render?: (module: unknown, el: NodeListOf<HTMLElement>) => void;
+    render?: (module: any, el: NodeListOf<HTMLElement>) => void;
     props?: any;
 };
 export default function create(organisms: Array<Organism>): Promise<void[]>;
