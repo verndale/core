@@ -98,7 +98,7 @@ export type Organism = {
   name: string;
   loader?: () => Promise<any>;
   styles?: () => Promise<any>;
-  render?: (module: unknown, el: NodeListOf<HTMLElement>) => void;
+  render?: (module: any, el: NodeListOf<HTMLElement>) => void;
   props?: any;
 };
 
@@ -117,6 +117,7 @@ export default function create(organisms: Array<Organism>): Promise<void[]> {
 
       if (organism.render && typeof organism.render === "function") {
         organism.render(module, el);
+        return;
       }
 
       render(el, ($target) => {
